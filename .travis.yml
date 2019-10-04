@@ -1,0 +1,15 @@
+language: java
+jdk: openjdk11
+services:
+  - docker
+deploy:
+  - provider: script
+    skip-cleanup: true
+    script: bash scripts/build-docker.sh :$TRAVIS_TAG
+    on:
+      tags: true
+  - provider: script
+    skip-cleanup: true
+    script: bash scripts/upload-docker.sh :$TRAVIS_TAG
+    on:
+      tags: true
